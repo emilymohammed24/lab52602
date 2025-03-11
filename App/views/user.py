@@ -17,6 +17,11 @@ def get_user_page():
     users = get_all_users()
     return render_template('users.html', users=users)
 
+@user_views.route('/newuser/<username>/<password>', methods=['GET'])
+def create_user_action(username, password):
+    create_user(username, password)
+    return jsonify({"message":"User Created"}) 
+    
 @user_views.route('/users', methods=['POST'])
 def create_user_action():
     data = request.form
