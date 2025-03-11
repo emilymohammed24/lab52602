@@ -17,6 +17,12 @@ def get_user_page():
     users = get_all_users()
     return render_template('users.html', users=users)
 
+@user_views.route('/api/users', methods=['POST'])
+def create_user_action():
+    data = request.json # get data from request body
+    user = create_user(data['username'], data['password'])
+    return jsonify({"message":f" {data['username']} created with id {user.id}"}) 
+
 @user_views.route('/newuser/<username>/<password>', methods=['GET'])
 def create_user_action_2(username, password):
     create_user(username, password)
